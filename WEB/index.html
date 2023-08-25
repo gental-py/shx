@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>shX</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" media="screen and (min-width: 750px)" href="assets/style.css">
+    <link rel="stylesheet" media="screen and (max-width: 750px)" href="assets/mobile-style.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,600;8..144,700;8..144,800&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+    <header>
+        <div class="header-content">
+            <span class="header-title">SHX</span>
+            <div class="align-right">
+                <button class="header-btn" id="author-btn">Author</button>
+                <button class="header-btn" id="project-btn">Project</button>
+                <button class="header-btn main-header-btn" id="download-btn">Download CLI</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" id="s-main">
+        <div class="logo-container">
+            <img src="assets/logo.png" draggable="false" id="main-logo"/>
+        </div>
+
+        <div class="root-cards-container" id="cards">
+            <div class="card" id="card-to-shrink" onclick="moveto(1);">
+                <div class="card-content">
+                    <h3>🤏 Shrink URL</h3>
+                </div>
+            </div>
+
+            <div class="card" id="card-to-check" onclick="moveto(2);">
+                <div class="card-content">
+                    <h3>🔎 Check URL</h3>
+                </div>
+            </div>
+            
+            <div class="card" id="card-to-report" onclick="moveto(3);">
+                <div class="card-content">
+                    <h3>🚩 Report URL</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="s-create">
+        <div class="form-container">
+            <h2 class="form-title">Create Your custom short URL</h2>
+
+            <div class="group">
+                <input type="text" required state="none" id="sh-url" oninput="sh_check_url()">
+                <label class="text-inp-label">URL</label>
+            </div>
+
+            <div class="switchable-input">
+                <label class="switch">
+                    <input type="checkbox" id="sh-s-code" onchange="on_switch_flip(`sh-s-code`, `sh-g-code`)">
+                    <span class="slider"></span>
+                    <span class="slider-label">Custom Code</span>
+                </label>
+
+                <div class="group" id="sh-g-code">
+                    <input type="text" required state="none" id="sh-code" oninput="sh_check_custom_code()">
+                    <label class="text-inp-label vanish">Custom Code</label>
+                </div>
+            </div>
+
+            <div class="switchable-input">
+                <label class="switch">
+                    <input type="checkbox" id="sh-s-pwd" onchange="on_switch_flip(`sh-s-pwd`, `sh-g-pwd`)">
+                    <span class="slider"></span>
+                    <span class="slider-label">Password</span>
+                </label>
+
+                <div class="group" id="sh-g-pwd">
+                    <input type="text" required id="sh-pwd" state="none" oninput="sh_check_password()">
+                    <label class="text-inp-label vanish">Passowrd</label>
+                </div>
+            </div>
+
+            <div class="switchable-input">
+                <label class="switch">
+                    <input type="checkbox" id="sh-s-limit" onchange="on_switch_flip(`sh-s-limit`, `sh-g-limit`)">
+                    <span class="slider"></span>
+                    <span class="slider-label">Use limit</span>
+                </label>
+
+                <div class="group" id="sh-g-limit">
+                    <input type="number" required id="sh-limit" state="none" min="0" oninput="sh_check_use_limit()">
+                    <label class="text-inp-label vanish">Use limit</label>
+                </div>
+            </div>
+
+            <div class="switchable-input">
+                <label class="switch">
+                    <input type="checkbox" id="sh-s-exp" onchange="on_switch_flip(`sh-s-exp`, `sh-g-exp`)">
+                    <span class="slider"></span>
+                    <span class="slider-label">Expiration date</span>
+                </label>
+
+                <div class="group" id="sh-g-exp">
+                    <input type="datetime-local" required id="sh-exp" state="none" onchange="sh_check_exp_date()">
+                    <label class="text-inp-label vanish"></label>
+                </div>
+            </div>
+             
+            <div class="info-footer">
+                <button class="form-submit" id="sh-submit" onclick="sh_create()">Create 🤏</button>
+                <span id="sh-info"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="s-check">
+        <div class="form-container">
+            <h2 class="form-title">Check shrinked URL details</h2>
+            
+            <div class="group">
+                <input type="text" required state="none" id="ch-code" oninput="ch_check_code()">
+                <label class="text-inp-label">Code #</label>
+            </div>
+
+            <div class="info-footer">
+                <button class="form-submit" id="ch-submit" onclick="ch_check_details(event)">Check 🔎</button>
+                <span id="ch-info"></span>
+            </div>
+
+            <div class="code-details-container">
+                <div class="detail-group">
+                    <div class="detail-name">Code:</div>
+                    <div class="detail-value" id="val-code">-</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-name">URL:</div>
+                    <div class="detail-value" id="val-url">-</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-name">Password:</div>
+                    <div class="detail-value" id="val-pwd">-</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-name">Used/limit:</div>
+                    <div class="detail-value" id="val-use-limit">-</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-name">Expires at:</div>
+                    <div class="detail-value" id="val-exp">-</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-name">Created at:</div>
+                    <div class="detail-value" id="val-created">-</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="s-report">
+        <div class="form-container">
+            <h2 class="form-title">Report malicious SHX code</h2>
+        
+            <div class="group">
+                <input type="text" required state="none" id="rp-code" oninput="rp_check_code()">
+                <label class="text-inp-label">Code #</label>
+            </div>
+        
+            <div class="group">
+                <textarea required id="rp-msg"></textarea>
+                <label class="text-inp-label vanish">Explain problem...</label>
+            </div>
+
+            <div class="switchable-input">
+                <label class="switch">
+                    <input type="checkbox" id="rp-s-mail" onchange="on_switch_flip(`rp-s-mail`, `rp-g-mail`)">
+                    <span class="slider"></span>
+                    <span class="slider-label">Contact Email</span>
+                </label>
+
+                <div class="group" id="rp-g-mail">
+                    <input type="text" required state="none" id="rp-mail" oninput="rp_check_email()">
+                    <label class="text-inp-label vanish">Contact Email</label>
+                </div>
+            </div>
+
+            <div class="info-footer">
+                <button class="form-submit" onclick="rp_send()">Send report 🚩</button>
+                <span id="rp-info"></span>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/script.js"></script>
+    <script src="assets/btns.js"></script>
+</body>
+</html>
