@@ -14,7 +14,7 @@ def get_time():
 class SysLogger:
     def _grab_caller_info():
         caller_frame = inspect.stack()[3]
-        filename = os.path.basename(caller_frame.filename).removesuffix(".py")
+        filename = os.path.basename(caller_frame.filename)
         function = caller_frame.function
         lineno = caller_frame.lineno
         if function == "<module>":
