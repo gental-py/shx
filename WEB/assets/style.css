@@ -98,6 +98,12 @@ header {
     transform: translateX(-4px) translateY(-4px);
 }
 
+.hz-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .header-btn:active {
     background-color: #ffffff52;
 }

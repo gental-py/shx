@@ -7,7 +7,7 @@ import os
 
 
 init(True)
-API = "https://shx_api-1-r6977706.deta.app/"
+API = "http://api-shx.ct8.pl:38896/"
 WEBSITE_URL = "http://shx.ct8.pl"
 
 def test_connection():

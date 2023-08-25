@@ -19,6 +19,12 @@
     display: none;
 }
 
+.hz-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .logo-container {
     width: 100%;
     display: flex;
