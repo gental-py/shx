@@ -21,7 +21,7 @@ def _dump_json(path: str, content: dict) -> None:
         json.dump(content, file, indent=2, separators=(',',': '), ensure_ascii=True)
 
 
-def get_all_entries() -> list[EntryModel]:
+def get_all_entries() -> list:
     return [
         EntryModel(file.removesuffix(".json"), *_load_json(DB_PATH+file).values()) 
         for file in os.listdir(DB_PATH) 

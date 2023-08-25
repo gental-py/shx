@@ -14,7 +14,7 @@ def get_time():
 class SysLogger:
     def _grab_caller_info():
         caller_frame = inspect.stack()[3]
-        filename = os.path.basename(caller_frame.filename).removesuffix(".py")
+        filename = os.path.basename(caller_frame.filename)
         function = caller_frame.function
         lineno = caller_frame.lineno
         if function == "<module>":
@@ -25,6 +25,7 @@ class SysLogger:
     def _log(level: str, message: str):
         caller_info = SysLogger._grab_caller_info()
         content = f"[{get_time()}] <{level}> {caller_info} -> {message}\n"
+        print(f"(sys) {content}")
         with open(SYSLOGS_FILE_PATH, "a") as file:
             file.write(content)
 
@@ -41,6 +42,7 @@ class AccessLogger:
 
     def log(request: Request, status_code: int, message: str):
         content = f"[{get_time()}] {request.client.host}:{request.client.port} {AccessLogger._grab_caller_info()} ({status_code})  {message}\n"
+        print(f"(access) {content}")
         with open(ACCESSLOGS_FILE_PATH, "a") as file:
             file.write(content)
 
