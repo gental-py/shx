@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:8000/"
+const API = "http://api-shx.ct8.pl:38896/"
 const API_GATE = API + "gate/"
 
 
