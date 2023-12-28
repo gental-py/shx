@@ -16,7 +16,7 @@ def test_connection():
         return
     except:
         print(f"  ⚠️ {Fore.RED}Request test failed. (Network problem)")
-        exit()
+        sys.exit()
 test_connection()
 
 
@@ -25,7 +25,7 @@ def generate_timestamp(string) -> int:
         dt = Datetime.strptime(string, "%d/%m/%Y %H:%M")
     except:
         print("  ⚠️ Invalid date format (dd/mm/YYYY HH:MM)")
-        exit()
+        sys.exit()
     if dt is None:
         return int(Datetime.now().timestamp())
     return int(dt.timestamp())
@@ -45,25 +45,25 @@ def handle_base_status(status) -> str:
         print("  🖤 You are on BLACKLIST.")
         print("  💥 Proceeding self destruction.")
         os.remove(__file__)
-        exit()
+        sys.exit()
     elif status == "not_found":
         print(f"  ⚠️ {Fore.RED}Not found.")
-        exit()
+        sys.exit()
     elif status == "code_expired":
         print(f"  ⚠️ {Fore.RED}Code expired.")
-        exit()
+        sys.exit()
     elif status == "use_limit_reached":
         print(f"  ⚠️ {Fore.RED}Use limit reached.")
-        exit()
+        sys.exit()
     elif status == "invalid_data":
         print(f"  ⚠️ {Fore.RED}Invalid data.")
-        exit()
+        sys.exit()
     elif status == "already_taken":
         print(f"  ⚠️ {Fore.RED}Already taken.")
-        exit()
+        sys.exit()
     elif status == "invalid_url":
         print(f"  ⚠️ {Fore.RED}Invalid URL.")
-        exit()
+        sys.exit()
     else:
         return status
 
@@ -108,20 +108,20 @@ def create():
     url = input("  URL: ")
     if not valid_url(url):
         print(f"  ⚠️ {Fore.RED}Invalid URL.")
-        exit()
+        sys.exit()
 
     print(f"  {Fore.LIGHTBLACK_EX}(next prompts are optional. You can leave them blank)")
 
     code = input("  Custom code: ")
     if code and len(code) < 3 or code and not code.isalnum():
         print(f"  ⚠️ {Fore.RED}Code must be at least 3 chars long and alphanumeric.")
-        exit()
+        sys.exit()
 
     password = input("  Password: ")
     use_limit = input("  Use limit: ")
     if use_limit and not use_limit.isnumeric():
         print(f"  ⚠️ {Fore.RED}Invalid use limit.")
-        exit()
+        sys.exit()
     use_limit = int(use_limit) if use_limit else 0
 
     exp_date = input("  Expiration date (dd/mm/YYYY HH:MM): ")
@@ -173,7 +173,7 @@ def main():
     args = sys.argv
     if len(args) == 1:
         print("  ⚠️ No command specified (go, create, check, report, web).")
-        exit()
+        sys.exit()
 
     name_fn = {
         "go": redirect,
@@ -186,7 +186,7 @@ def main():
     command = args[1].lower()
     if command not in name_fn:
         print(f"  ⚠️ Invalid command: {command} (go, create, check, report, web).")
-        exit()
+        sys.exit()
     name_fn.get(command)()
 
 if __name__ == "__main__":
